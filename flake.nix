@@ -113,19 +113,49 @@
 
   outputs = inputs@{ self, nixpkgs, home-manager, ... }:
   let
+    hostNames = builtins.attrNames (builtins.readDir ./hosts);
+    homeNames = builtins.attrNames (builtins.readDir ./homes);
+
+    makeHost = name:
+      let path = ./hosts/${name}/core.nix; in
+      {
+        inherit name;
+        config = import (path) {
+          inherit nixpkgs;
+        };
+      };
+
+    makeHome = name:
+      let path = ./hosts/${name}/core.nix; in
+      {
+        inherit name;
+        config = import (path) {
+          inherit nixpkgs;
+        };
+      };
+
+    allHomesConfigs = builtins.listToAttrs (
+      map (name: {
+        name = name;
+        value = (makeHome name).config;
+      }) homeNames
+    );
+
+
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
   in
   {
-    homeConfigurations."cartola" = home-manager.lib.homeManagerConfiguration {
-      inherit pkgs;
-
-      # Specify your home configuration modules here, for example,
-      # the path to your home.nix.
-      modules = [ ./home.nix ];
-
-      # Optionally use extraSpecialArgs
-      # to pass through arguments to home.nix
-    };
+    homeConfigurations = allHomesConfigs;
+    # homeConfigurations."cartola" = home-manager.lib.homeManagerConfiguration {
+    #   inherit pkgs;
+    #
+    #   # Specify your home configuration modules here, for example,
+    #   # the path to your home.nix.
+    #   modules = [ ./home.nix ];
+    #
+    #   # Optionally use extraSpecialArgs
+    #   # to pass through arguments to home.nix
+    # };
   };
 }
