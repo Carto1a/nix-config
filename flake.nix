@@ -126,7 +126,7 @@
       };
 
     makeHome = name:
-      let path = ./hosts/${name}/core.nix; in
+      let path = ./hosts/${name}/home.nix; in
       {
         inherit name;
         config = import (path) {
