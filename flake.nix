@@ -130,7 +130,7 @@
       {
         inherit name;
         config = import (path) {
-          inherit inputs;
+          inherit nixpkgs home-manager;
         };
       };
 
