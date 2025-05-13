@@ -1,7 +1,7 @@
 { nixpkgs, home-manager }:
 
 {
-  cartola = home-manager.lib.homeManagerConfiguration {
+  homeConfigurations.cartola = home-manager.lib.homeManagerConfiguration {
     inherit nixpkgs;
 
     # Specify your home configuration modules here, for example,
