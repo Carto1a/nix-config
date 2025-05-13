@@ -2,7 +2,7 @@
 
 {
   homeConfigurations.cartola = home-manager.lib.homeManagerConfiguration {
-    inherit nixpkgs;
+    inherit pkgs;
 
     # Specify your home configuration modules here, for example,
     # the path to your home.nix.
