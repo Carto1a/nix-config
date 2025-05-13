@@ -126,11 +126,11 @@
       };
 
     makeHome = name:
-      let path = ./hosts/${name}/home.nix; in
+      let path = ./homes/${name}/core.nix; in
       {
         inherit name;
         config = import (path) {
-          inherit nixpkgs;
+          inherit inputs;
         };
       };
 
