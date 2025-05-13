@@ -1,4 +1,4 @@
-{ nixpkgs, home-manager };
+{ nixpkgs, home-manager }:
 
 {
   cartola = home-manager.lib.homeManagerConfiguration {
@@ -11,4 +11,4 @@
     # Optionally use extraSpecialArgs
     # to pass through arguments to home.nix
   };
-};
+}
